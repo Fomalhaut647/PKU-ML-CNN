@@ -215,3 +215,5 @@ test.py
 reference
 report.md
 *.txt
+data/*
+splits/
