@@ -63,8 +63,8 @@ def get_split(data_root, fold_idx, transform=None, split_dir="splits"):
     train_samples = list(zip(train_df["img_path"], train_df["label"]))
     val_samples = list(zip(val_df["img_path"], val_df["label"]))
 
-    train_dataset = CUBDataset(data_root, train_samples, transform)
-    val_dataset = CUBDataset(data_root, val_samples, transform)
+    train_dataset = CUBDataset(data_root, train_samples, transform.get("train"))
+    val_dataset = CUBDataset(data_root, val_samples, transform.get("val"))
 
     return train_dataset, val_dataset
 
