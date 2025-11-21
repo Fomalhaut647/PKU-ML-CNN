@@ -36,6 +36,10 @@ def load_cub_metadata(data_root):
 
 
 def create_kfold_splits(data_root, n_splits=10, seed=42, save_dir="splits"):
+    if os.path.exists(save_dir):
+        print("K-Fold Splits found. Loading from cache.")
+        return
+
     os.makedirs(save_dir, exist_ok=True)
     df = load_cub_metadata(data_root)
 
