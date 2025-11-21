@@ -143,6 +143,7 @@ def train(data_root, epochs, batch_size, lr, num_folds=10):
         model = CNN(num_classes=200).to(device)
         criterion = nn.CrossEntropyLoss()
         optimizer = optim.AdamW(model.parameters(), lr=lr)
+        scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=epochs)
 
         history = {"train_loss": [], "train_acc": [], "val_loss": [], "val_acc": []}
         best_val_acc = 0.0
@@ -163,6 +164,7 @@ def train(data_root, epochs, batch_size, lr, num_folds=10):
             print(f"Train Loss: {train_loss:.4f} | Train Acc: {train_acc:.4f}")
             print(f"Val   Loss: {val_loss:.4f} | Val   Acc: {val_acc:.4f}")
 
+        scheduler.step()
         fold_results.append(best_val_acc)
         plot_learning_curves(history, fold_idx)
         print(f"Best Val Acc: {best_val_acc:.4f}")
@@ -176,7 +178,7 @@ if __name__ == "__main__":
     data_root = "data/CUB_200_2011"
     epochs = 100
     batch_size = 256
-    lr = 1e-4
+    lr = 1e-3
     num_folds = 1
 
     train(
