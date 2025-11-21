@@ -260,7 +260,7 @@ transforms.Compose(
 
 
 
-# 8. 设置 batch_size=256
+# 9. 弱数据增强
 
 Best Val Acc: 0.1730
 
@@ -282,3 +282,42 @@ transforms.Compose(
 ~~~
 
 ![](./results/9.png)
+
+
+
+# 10. 全局平均池化
+
+Best Val Acc: 0.1628
+
+在全连接层前添加全局平均池化，有效缓解 train loss 和 val loss 倒挂的现象，但收敛速度仍然较慢
+
+~~~python
+epochs = 100
+batch_size = 256
+lr = 1e-4
+
+transforms.Compose(
+    [
+        transforms.RandomResizedCrop(224, scale=(0.5, 1.0), interpolation=3),
+        transforms.RandomHorizontalFlip(),
+        transforms.ToTensor(),
+        transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
+    ]
+)
+~~~
+
+~~~python
+def __init__(self, num_classes=200):
+# ...
+self.avgpool = nn.AdaptiveAvgPool2d((1, 1))
+# ...
+
+def forward(self, x):
+# ...
+x = self.layer4(x)
+x = self.avgpool(x)
+x = self.fc(x)
+return x
+~~~
+
+![](./results/10.png)

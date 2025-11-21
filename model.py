@@ -35,9 +35,11 @@ class CNN(nn.Module):
             nn.MaxPool2d(kernel_size=2, stride=2),
         )
 
+        self.avgpool = nn.AdaptiveAvgPool2d((1, 1))
+
         self.fc = nn.Sequential(
             nn.Flatten(),
-            nn.Linear(256 * 14 * 14, 512),
+            nn.Linear(256, 512),
             nn.ReLU(),
             nn.Dropout(0.5),
             nn.Linear(512, num_classes),
@@ -48,5 +50,7 @@ class CNN(nn.Module):
         x = self.layer2(x)
         x = self.layer3(x)
         x = self.layer4(x)
+        x = self.avgpool(x)
         x = self.fc(x)
+
         return x
