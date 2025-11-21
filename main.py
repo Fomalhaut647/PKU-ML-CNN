@@ -98,15 +98,15 @@ def train(data_root, epochs, batch_size, lr, num_folds=10):
     transform = {
         "train": transforms.Compose(
             [
-                transforms.RandomResizedCrop(224, scale=(0.08, 1.0), interpolation=3),
+                transforms.RandomResizedCrop(224, scale=(0.5, 1.0), interpolation=3),
                 transforms.RandomHorizontalFlip(),
-                transforms.TrivialAugmentWide(),
+                # transforms.TrivialAugmentWide(),
                 transforms.ToTensor(),
                 transforms.Normalize(
                     mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]
                 ),
                 transforms.RandomErasing(
-                    p=0.5,
+                    p=0.3,
                     scale=(0.02, 0.2),
                     ratio=(0.3, 3.0),
                     value="random",
@@ -174,7 +174,7 @@ def train(data_root, epochs, batch_size, lr, num_folds=10):
 
 if __name__ == "__main__":
     data_root = "data/CUB_200_2011"
-    epochs = 500
+    epochs = 100
     batch_size = 64
     lr = 1e-4
     num_folds = 1
