@@ -205,3 +205,30 @@ transforms.Compose(
 ~~~
 
 ![](./results/5.png)
+
+
+
+# 取消数据增强
+
+Best Val Acc: 0.0840
+
+表现比数据增强前更糟糕，可能是 batch_size 减小导致的
+
+~~~python
+epochs = 100
+batch_size = 64
+lr = 1e-4
+
+transforms.Compose(
+    [
+        transforms.Resize(256),
+        transforms.CenterCrop(224),
+        transforms.ToTensor(),
+        transforms.Normalize(
+            mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]
+        ),
+    ]
+)
+~~~
+
+![](./results/6.png)
