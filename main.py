@@ -167,7 +167,7 @@ def train(data_root, epochs, batch_size, lr, num_folds=10):
 if __name__ == "__main__":
     data_root = "data/CUB_200_2011"
     epochs = 100
-    batch_size = 64
+    batch_size = 256
     lr = 1e-4
     num_folds = 1
 

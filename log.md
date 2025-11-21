@@ -204,7 +204,7 @@ transforms.Compose(
 )
 ~~~
 
-![](./results/5.png)
+![](./results/6.png)
 
 
 
@@ -231,4 +231,29 @@ transforms.Compose(
 )
 ~~~
 
-![](./results/6.png)
+![](./results/7.png)
+
+
+
+# 设置 batch_size=256
+
+Best Val Acc: 0.1578
+
+表现比第三轮更好，说明确实是 batch_size 的问题
+
+~~~python
+epochs = 100
+batch_size = 256
+lr = 1e-4
+
+transforms.Compose(
+    [
+        transforms.Resize(256),
+        transforms.CenterCrop(224),
+        transforms.ToTensor(),
+        transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
+    ]
+)
+~~~
+
+![](./results/8.png)
