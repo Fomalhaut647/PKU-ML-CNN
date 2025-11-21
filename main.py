@@ -88,7 +88,7 @@ def train(data_root, epochs, batch_size, lr, num_folds=10):
 
     if torch.cuda.is_available():
         device = torch.device("cuda")
-        print(f"Using {torch.cuda.device_count()} GPUs for training\n")
+        print("Using GPU for training\n")
     else:
         device = torch.device("cpu")
         print("Using CPU for training\n")
@@ -136,12 +136,11 @@ def train(data_root, epochs, batch_size, lr, num_folds=10):
             fold_idx=fold_idx,
             transform=transform,
             batch_size=batch_size,
+            pin_memory=True,
         )
 
         # 模型、损失函数、优化器
         model = CNN(num_classes=200).to(device)
-        if torch.cuda.device_count() > 1:
-            model = nn.DataParallel(model)
         criterion = nn.CrossEntropyLoss()
         optimizer = optim.AdamW(model.parameters(), lr=lr)
 
@@ -175,8 +174,8 @@ def train(data_root, epochs, batch_size, lr, num_folds=10):
 
 if __name__ == "__main__":
     data_root = "data/CUB_200_2011"
-    epochs = 100
-    batch_size = 256
+    epochs = 500
+    batch_size = 64
     lr = 1e-4
     num_folds = 1
 

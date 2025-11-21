@@ -70,13 +70,27 @@ def get_split(data_root, fold_idx, transform=None, split_dir="splits"):
 
 
 def get_dataloader(
-    data_root, fold_idx, transform, batch_size=32, num_workers=4, split_dir="splits"
+    data_root,
+    fold_idx,
+    transform,
+    batch_size=32,
+    num_workers=16,
+    split_dir="splits",
+    pin_memory=False,
 ):
     train_dataset, val_dataset = get_split(data_root, fold_idx, transform, split_dir)
     train_loader = DataLoader(
-        train_dataset, batch_size=batch_size, shuffle=True, num_workers=num_workers
+        train_dataset,
+        batch_size=batch_size,
+        shuffle=True,
+        num_workers=num_workers,
+        pin_memory=pin_memory,
     )
     val_loader = DataLoader(
-        val_dataset, batch_size=batch_size, shuffle=False, num_workers=num_workers
+        val_dataset,
+        batch_size=batch_size,
+        shuffle=False,
+        num_workers=num_workers,
+        pin_memory=pin_memory,
     )
     return train_loader, val_loader
