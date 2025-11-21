@@ -1,4 +1,4 @@
-# 原始模型
+#  1. 原始模型
 
 Best Val Acc: 0.0916
 
@@ -21,7 +21,7 @@ transforms.Compose(
 
 
 
-# 4 层 CNN
+# 2. 4 层 CNN
 
 Best Val Acc: 0.0034
 
@@ -44,7 +44,7 @@ transforms.Compose(
 
 
 
-# 降低 lr & 增大 batch_size
+# 3. 降低 lr & 增大 batch_size
 
 Best Val Acc: 0.1383
 
@@ -67,7 +67,7 @@ transforms.Compose(
 
 
 
-# 数据增强
+# 4. 数据增强
 
 Best Val Acc: 0.0187
 
@@ -100,7 +100,7 @@ transforms.Compose(
 
 
 
-# 仅调整 num_workers 和 batch_size
+# 5. 仅调整 num_workers 和 batch_size
 
 模型从第 6 个 epoch 开始就崩溃了
 
@@ -173,7 +173,7 @@ Val   Loss: 5.2991 | Val   Acc: 0.0008
 
 
 
-# 削弱数据增强
+# 6. 削弱数据增强
 
 Best Val Acc: 0.0008
 
@@ -208,7 +208,7 @@ transforms.Compose(
 
 
 
-# 取消数据增强
+# 7. 取消数据增强
 
 Best Val Acc: 0.0840
 
@@ -235,7 +235,7 @@ transforms.Compose(
 
 
 
-# 设置 batch_size=256
+# 8. 设置 batch_size=256
 
 Best Val Acc: 0.1578
 
@@ -257,3 +257,28 @@ transforms.Compose(
 ~~~
 
 ![](./results/8.png)
+
+
+
+# 8. 设置 batch_size=256
+
+Best Val Acc: 0.1730
+
+过拟合得到缓解
+
+~~~python
+epochs = 100
+batch_size = 256
+lr = 1e-4
+
+transforms.Compose(
+    [
+        transforms.RandomResizedCrop(224, scale=(0.5, 1.0), interpolation=3),
+        transforms.RandomHorizontalFlip(),
+        transforms.ToTensor(),
+        transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
+    ]
+)
+~~~
+
+![](./results/9.png)

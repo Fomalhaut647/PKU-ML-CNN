@@ -98,12 +98,20 @@ def train(data_root, epochs, batch_size, lr, num_folds=10):
     transform = {
         "train": transforms.Compose(
             [
-                transforms.Resize(256),
-                transforms.CenterCrop(224),
+                transforms.RandomResizedCrop(224, scale=(0.5, 1.0), interpolation=3),
+                transforms.RandomHorizontalFlip(),
+                # transforms.TrivialAugmentWide(),
                 transforms.ToTensor(),
                 transforms.Normalize(
                     mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]
                 ),
+                # transforms.RandomErasing(
+                #     p=0.5,
+                #     scale=(0.02, 0.2),
+                #     ratio=(0.3, 3.0),
+                #     value="random",
+                #     inplace=True,
+                # ),
             ]
         ),
         "val": transforms.Compose(
