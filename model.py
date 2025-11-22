@@ -46,11 +46,12 @@ class CNN(nn.Module):
         )
 
     def forward(self, x):
-        x = self.layer1(x)
-        x = self.layer2(x)
-        x = self.layer3(x)
-        x = self.layer4(x)
-        x = self.avgpool(x)
-        x = self.fc(x)
+        # Input: 256 * 3 * 224 * 224
+        x = self.layer1(x)  # 256 * 32 * 112 * 112
+        x = self.layer2(x)  # 256 * 64 * 56 * 56
+        x = self.layer3(x)  # 256 * 128 * 28 * 28
+        x = self.layer4(x)  # 256 * 256 * 14 * 14
+        x = self.avgpool(x)  # 256 * 256 * 1 * 1
+        x = self.fc(x)  # 256 * 200
 
         return x

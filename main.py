@@ -179,7 +179,7 @@ if __name__ == "__main__":
     epochs = 100
     batch_size = 256
     lr = 1e-3
-    num_folds = 1
+    num_folds = 10
 
     train(
         data_root=data_root,

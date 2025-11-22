@@ -333,3 +333,33 @@ scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=epochs)
 ~~~
 
 ![](./results/11.png)
+
+
+
+# 12. 十折交叉验证
+
+Average Acc: 0.3585
+Best    Acc: 0.3859
+
+保持配置不变，执行十折交叉验证
+
+~~~python
+epochs = 100
+batch_size = 256
+lr = 1e-3
+~~~
+
+~~~python
+num_folds = 10
+~~~
+
+![](./results/fold_1.png)
+![](./results/fold_2.png)
+![](./results/fold_3.png)
+![](./results/fold_4.png)
+![](./results/fold_5.png)
+![](./results/fold_6.png)
+![](./results/fold_7.png)
+![](./results/fold_8.png)
+![](./results/fold_9.png)
+![](./results/fold_10.png)
